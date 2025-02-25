@@ -8,7 +8,7 @@ function App() {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/is_valid`, {
+      const response = await axios.get(`http://127.0.0.1:5000/validate`, {
         params: {
           wallet_address: searchQuery
         },
@@ -19,6 +19,13 @@ function App() {
 
       console.log('Search results:', response.data);
       // Handle the response data here
+
+      // reponse will contain a property called valid with a boolean value
+      if (response.data.valid === 'true') {
+        alert('Wallet address is valid');
+      } else {
+        alert('Wallet address is invalid');
+      }
 
     } catch (error) {
       console.error('Error fetching search results:', error);
