@@ -7,15 +7,11 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [originalWalletAddress, setOriginalWalletAddress] = useState('');
   const [validationResult, setValidationResult] = useState(null);
 
   const handleSearch = async () => {
-    // Temporary mock - remove this when connecting to real API
-    // setValidationResult({
-    //   isValid: true,
-    //   message: 'Wallet address is valid'
-    // });
-
+    setOriginalWalletAddress(searchQuery);
 
     try {
       const response = await axios.get(`http://127.0.0.1:5000/validate`, {
@@ -212,7 +208,7 @@ function App() {
                   <Box sx={{ display: 'grid', gap: 2 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography>Wallet Address:</Typography>
-                      <Typography>{searchQuery}</Typography>
+                      <Typography>{originalWalletAddress}</Typography>
                     </Box>
 
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
