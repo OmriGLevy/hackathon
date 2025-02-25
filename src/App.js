@@ -10,6 +10,13 @@ function App() {
   const [validationResult, setValidationResult] = useState(null);
 
   const handleSearch = async () => {
+    // Temporary mock - remove this when connecting to real API
+    // setValidationResult({
+    //   isValid: true,
+    //   message: 'Wallet address is valid'
+    // });
+
+
     try {
       const response = await axios.get(`http://127.0.0.1:5000/validate`, {
         params: {
@@ -170,11 +177,13 @@ function App() {
               {validationResult.isValid && (
                 <Box
                   sx={{
-                    bgcolor: '#4C1D95', // Deep purple background
-                    borderRadius: '16px',
-                    p: 3,
-                    width: '100%',
-                    color: 'white',
+                    backgroundColor: '#7C3AED', // Lighter purple
+                    borderRadius: '12px',
+                    padding: '20px',
+                    textAlign: 'center',
+                    color: 'white',  // Making text white for better contrast
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    marginBottom: '20px'
                   }}
                 >
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
