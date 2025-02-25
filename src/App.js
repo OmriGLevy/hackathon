@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [validationResult, setValidationResult] = useState(null);
 
   const handleSearch = async () => {
     try {
@@ -18,18 +19,18 @@ function App() {
       });
 
       console.log('Search results:', response.data);
-      // Handle the response data here
 
-      // reponse will contain a property called valid with a boolean value
-      if (response.data.valid === 'true') {
-        alert('Wallet address is valid');
-      } else {
-        alert('Wallet address is invalid');
-      }
+      setValidationResult({
+        isValid: response.data.valid === 'true',
+        message: response.data.valid === 'true' ? 'Wallet address is valid' : 'Wallet address is invalid'
+      });
 
     } catch (error) {
       console.error('Error fetching search results:', error);
-      // Handle errors here
+      setValidationResult({
+        isValid: false,
+        message: 'Error validating wallet address'
+      });
     }
   };
 
@@ -151,6 +152,18 @@ function App() {
               <SearchIcon />
             </Button>
           </Box>
+
+          {validationResult && (
+            <Typography
+              sx={{
+                color: validationResult.isValid ? 'success.main' : 'error.main',
+                fontWeight: 'medium',
+                mt: 2
+              }}
+            >
+              {validationResult.message}
+            </Typography>
+          )}
         </Box>
       </Box>
     </Container>
