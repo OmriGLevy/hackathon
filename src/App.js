@@ -27,7 +27,7 @@ function App() {
 
       setValidationResult({
         isValid: response.data.valid === 'true',
-        message: response.data.valid === 'true' ? 'Wallet address is valid' : 'Wallet address is invalid'
+        message: ''
       });
 
     } catch (error) {
