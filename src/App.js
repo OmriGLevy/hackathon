@@ -115,7 +115,7 @@ function App() {
             sx={{
               display: 'flex',
               gap: 1,
-              width: { xs: '100%', sm: '584px' },
+              width: { xs: '100%', sm: '700px' },
             }}
           >
             <TextField
