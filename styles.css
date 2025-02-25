@@ -1,0 +1,7 @@
+.logo {
+  position: fixed;  /* or absolute, depending on your needs */
+  top: 20px;
+  left: 20px;
+  width: 150px;  /* adjust size as needed */
+  height: auto;
+}
