@@ -3,6 +3,8 @@ import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import axios from 'axios';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [validationResult, setValidationResult] = useState(null);
@@ -154,15 +156,56 @@ function App() {
           </Box>
 
           {validationResult && (
-            <Typography
-              sx={{
-                color: validationResult.isValid ? 'success.main' : 'error.main',
-                fontWeight: 'medium',
-                mt: 2
-              }}
-            >
-              {validationResult.message}
-            </Typography>
+            <>
+              <Typography
+                sx={{
+                  color: validationResult.isValid ? 'success.main' : 'error.main',
+                  fontWeight: 'medium',
+                  mt: 2
+                }}
+              >
+                {validationResult.message}
+              </Typography>
+
+              {validationResult.isValid && (
+                <Box
+                  sx={{
+                    bgcolor: '#4C1D95', // Deep purple background
+                    borderRadius: '16px',
+                    p: 3,
+                    width: '100%',
+                    color: 'white',
+                  }}
+                >
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                    <Typography variant="h6">Wallet Status</Typography>
+                    <CheckCircleOutlineIcon sx={{ color: '#4ADE80' }} />
+                  </Box>
+
+                  <Box sx={{ display: 'grid', gap: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography>Wallet Address:</Typography>
+                      <Typography>{searchQuery}</Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography>Status:</Typography>
+                      <Typography sx={{ color: '#4ADE80' }}>Valid</Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography>Transactions:</Typography>
+                      <Typography>44</Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography>Last Activity:</Typography>
+                      <Typography>{new Date().toISOString().split('T')[0]}</Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              )}
+            </>
           )}
         </Box>
       </Box>
