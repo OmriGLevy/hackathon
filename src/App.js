@@ -38,7 +38,7 @@ function App() {
       console.error('Error fetching search results:', error);
       setValidationResult({
         isValid: false,
-        message: 'Error validating wallet address'
+        message: error.response?.data?.message || 'Unable to connect to validation service. Please try again later.'
       });
     }
   };
@@ -189,46 +189,54 @@ function App() {
                   {validationResult.message}
                 </Typography>
 
-                {validationResult.isValid && (
-                  <Box
-                    sx={{
-                      backgroundColor: '#7C3AED', // Lighter purple
-                      borderRadius: '12px',
-                      padding: '20px',
-                      textAlign: 'center',
-                      color: 'white',  // Making text white for better contrast
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                      marginBottom: '20px'
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                      <Typography variant="h6">Wallet Status</Typography>
+                <Box
+                  sx={{
+                    backgroundColor: validationResult.isValid ? '#7C3AED' : '#DC2626', // Purple for valid, Red for invalid
+                    borderRadius: '12px',
+                    padding: '20px',
+                    textAlign: 'center',
+                    color: 'white',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    marginBottom: '20px'
+                  }}
+                >
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                    <Typography variant="h6">Wallet Status</Typography>
+                    {validationResult.isValid ? (
                       <CheckCircleOutlineIcon sx={{ color: '#4ADE80' }} />
-                    </Box>
-
-                    <Box sx={{ display: 'grid', gap: 2 }}>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography>Wallet Address:</Typography>
-                        <Typography>{searchQuery}</Typography>
-                      </Box>
-
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography>Status:</Typography>
-                        <Typography sx={{ color: '#4ADE80' }}>Valid</Typography>
-                      </Box>
-
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography>Transactions:</Typography>
-                        <Typography>44</Typography>
-                      </Box>
-
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Typography>Last Activity:</Typography>
-                        <Typography>{new Date().toISOString().split('T')[0]}</Typography>
-                      </Box>
-                    </Box>
+                    ) : (
+                      <CheckCircleOutlineIcon sx={{ color: '#FCA5A5' }} />
+                    )}
                   </Box>
-                )}
+
+                  <Box sx={{ display: 'grid', gap: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography>Wallet Address:</Typography>
+                      <Typography>{searchQuery}</Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Typography>Status:</Typography>
+                      <Typography sx={{ color: validationResult.isValid ? '#4ADE80' : '#FCA5A5' }}>
+                        {validationResult.isValid ? 'Valid' : 'Invalid'}
+                      </Typography>
+                    </Box>
+
+                    {validationResult.isValid && (
+                      <>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Typography>Transactions:</Typography>
+                          <Typography>44</Typography>
+                        </Box>
+
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <Typography>Last Activity:</Typography>
+                          <Typography>{new Date().toISOString().split('T')[0]}</Typography>
+                        </Box>
+                      </>
+                    )}
+                  </Box>
+                </Box>
               </>
             )}
           </Box>
